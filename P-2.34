@@ -1,3 +1,6 @@
+#Write a python file that reads a file and outputs a bar chart plot 
+#of the frequencies of each alphabet
+
 import os
 from matplotlib import pyplot as plt
 os.chdir('C:\Users\HaoB\Desktop')
