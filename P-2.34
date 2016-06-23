@@ -1,0 +1,14 @@
+import os
+from matplotlib import pyplot as plt
+os.chdir('C:\Users\HaoB\Desktop')
+
+f = open('4240.txt')
+count = {}
+for line in f:
+    word_list =  [c for c in line.rstrip() if c.isalpha()]
+    for i in word_list:
+        count[i] = count.get(i,0) + 1
+
+plt.bar(range(len(count)), count.values())
+plt.xticks(range(len(count)), count.keys())
+plt.show()
