@@ -1,0 +1,38 @@
+class bookStore():
+    def __init__(self, bookList):
+        self.bookList = bookList
+        self.customers = []
+    
+    
+class customer():
+    def __init__(self, name):
+        self.myBookList = []
+        self.readingHistory = {}
+        self.name = name
+        
+    def buy_book(self,bookName, bookStore):
+        #only buying a single book
+        if isinstance(bookStore,str):
+            if bookName not in bookStore.bookList:
+                print 'The book is currently not available'
+            else 
+                self.myBookList.append(bookName)
+                bookStore.customers.append(name)
+        else:
+        #buying multiple books at the same time
+            for i in bookName:
+                if i not in bookStore.bookList:
+                    print 'The book is currently not available'
+                else 
+                    self.myBookList.append(i)
+                    bookStore.customers.append(name)
+        
+    def read_book(self,bookName):
+        if bookName not in self.myBookList:
+            answer = raw_input('You don\'t have the book yet, do you wanna buy it? Y/N')
+            if answer = 'Y':
+                bookShop = raw_input('Which book store do you want to get')
+                self.buy_book(bookName,bookShop)
+        else:
+            self.readingHistory[bookName] = self.readingHistory.get(bookName,0) + 1 
+
