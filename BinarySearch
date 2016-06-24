@@ -1,0 +1,8 @@
+def binarySearch(searchList, targetValue,low, high):
+    mid = (low + high)//2
+    if searchList[mid] == targetValue:
+        return mid
+    elif searchList[mid] > targetValue:
+        return binarySearch(searchList, targetValue, low, mid -1)
+    else:
+        return binarySearch(searchList, targetValue,  mid + 1, high)
