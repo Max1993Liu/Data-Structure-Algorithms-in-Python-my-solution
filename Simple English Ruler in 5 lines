@@ -1,0 +1,7 @@
+def ruler(n):
+    if n == 1:
+        return n * '-' + '\n' + (n + 1) * '-'+ '\n' +  n * '-'
+    else:
+        return ruler(n - 1) + (n + 1) * '-' + '\n' + ruler(n - 1)
+        
+print ruler(2)
