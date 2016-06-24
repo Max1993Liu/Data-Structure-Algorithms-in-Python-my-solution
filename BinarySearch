@@ -6,3 +6,6 @@ def binarySearch(searchList, targetValue,low, high):
         return binarySearch(searchList, targetValue, low, mid -1)
     else:
         return binarySearch(searchList, targetValue,  mid + 1, high)
+
+
+#with the time complexity of O(logn)
