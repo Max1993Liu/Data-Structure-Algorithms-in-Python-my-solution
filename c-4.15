@@ -1,0 +1,10 @@
+def list_subset(fullSet, n = 2, subset = []):
+    if len(fullSet) == n - 1 :
+        return subset
+    else:
+        subset.append(fullSet[:(n-1)]) 
+        subset.append(fullSet[1:n])
+        n += 1
+        return list_subset(fullSet, n, subset)
+
+list_subset((2,3,4,5,6))
