@@ -1,0 +1,8 @@
+def approximateLog(number,count=0):
+    if number//2 == 0:
+        return count
+    else:
+        count += 1
+        return approximateLog(number/2.0, count)
+    
+approximateLog(16)
