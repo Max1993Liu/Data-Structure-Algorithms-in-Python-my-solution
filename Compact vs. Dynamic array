@@ -1,0 +1,18 @@
+#Python list (dynamic array)
+import sys
+data = []
+for k in range(30):
+    a = len(data)
+    b = sys.getsizeof(data)
+    print('Length:',a,'Size in bytes',b)
+    data.append(None)
+   
+#numpy array (compact array)
+import numpy as np
+import sys
+data = np.array([])
+for k in range(30):
+    a = len(data)
+    b = sys.getsizeof(data)
+    print('Length:',a,'Size in bytes',b)
+    data = np.append(data,None)
