@@ -1,0 +1,81 @@
+from copy import *
+
+class Hanoi(object):
+    def __init__(self, board):
+        self._availableMove = {'A':[],'B':[],'C':[]}
+        self.board = board
+        self.parent = None
+        self.depth = 0 
+        
+    def compare(self,start,end):
+        if self.board[start]:
+            if not self.board[end]:
+                return True
+            elif self.board[start][-1] > self.board[end][-1]:
+                return True
+            else:
+                return False
+            
+    def get_available_moves(self):
+        if self.compare('C','A'):
+            self._availableMove['C'].append("A")
+        if self.compare('C','B'):
+            self._availableMove['C'].append('B')
+        
+        if self.compare('B','A'):
+            self._availableMove['B'].append("A")
+        if self.compare('B','C'):
+            self._availableMove['B'].append('C')
+            
+        if self.compare('A','B'):
+            self._availableMove['A'].append("B")
+        if self.compare('A','C'):
+            self._availableMove['A'].append('C')
+        
+    def get_children(self):
+        children = []
+        self.get_available_moves()
+        
+        origBoard = deepcopy(self.board)
+        if self._availableMove['C']:
+            origBoard[self._availableMove['C'].pop()].append(origBoard['C'].pop())
+            children.append(Hanoi(origBoard))
+        
+        origBoard = deepcopy(self.board)
+        if self._availableMove['B']:
+            origBoard[self._availableMove['B'].pop()].append(origBoard['B'].pop())
+            children.append(Hanoi(origBoard))
+        
+        origBoard = deepcopy(self.board)
+        if self._availableMove['A']:
+            origBoard[self._availableMove['A'].pop()].append(origBoard['A'].pop())
+            children.append(Hanoi(origBoard))
+        
+        for i in children:
+            i.parent = self
+            i.depth = self.depth + 1
+        return children
+        
+    
+    def check_final_state(self):
+        if self.board['A'] == [1,2,3,4,5] or self.board['B'] == [1,2,3,4,5]:
+            return True
+        else:
+            return False
+
+def BFS(game):
+    fringe = []
+    visited = [game.board]
+    while not game.check_final_state():
+        for i in game.get_children():
+            if i.board not in visited:
+                fringe.append(i)
+        game = fringe.pop(0)
+        visited.append(game.board)
+    print game.board
+    print game.depth
+  
+test = Hanoi({'A':[], 'B':[],'C':[1,2,3,4,5]})
+#test.get_children()
+BFS(test)        
+      
