@@ -1,0 +1,16 @@
+from collections import deque
+
+def postfix_calculate(notation):
+    S = deque()
+    for c in notation.split():
+        if c.isdigit():
+            S.append(c)
+        else:
+            rightNum = S.pop()
+            leftNum = S.pop()
+            calc = eval(str(leftNum) + c + str(rightNum))
+            S.append(calc)
+    return S.pop()
+
+test = '5 2 + 8 3 - * 4 /'
+postfix_calculate(test)
