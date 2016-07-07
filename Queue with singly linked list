@@ -1,0 +1,42 @@
+class LinkedQueue:
+    def __init__(self):
+        self._head = None
+        self._tail = None
+        self._size = 0 
+        
+    def is_empty(self):
+        return self._size ==0
+    
+    def first(self):
+        return self._head._element
+    
+    def enqueue(self,e):
+        new = _Node(e,None)
+        if self.is_empty():
+            self._head = new
+            self._tail = new
+        else:
+            self._tail._next = new
+        self._tail = new
+        self._size += 1
+    
+    def dequeue(self):
+        answer = self._head._element
+        self._head = self._head._next
+        self._size -= 1
+    
+    def __repr__(self):
+        temp = self._head
+        stackList = []
+        for i in range(self._size):
+            stackList.append(temp._element)
+            temp = temp._next
+        return str(stackList)
+
+Q = LinkedQueue()
+Q.enqueue(2)
+Q.enqueue(3)
+Q.enqueue(4)
+Q.enqueue(5)
+Q.dequeue()
+print Q
