@@ -1,0 +1,13 @@
+def reverse_list(headNode,output):
+    if headNode._next == None:
+        output.push(headNode._element)
+        return output
+    else:
+        output.push(headNode._element)
+        return reverse_list(headNode._next,output)
+    
+L = SinglyList()
+for i in range(1,10):
+    L.push(i)
+
+reverse_list(L._head,SinglyList())
