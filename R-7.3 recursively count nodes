@@ -1,0 +1,50 @@
+class _Node:
+    __slots__ = '_element','_next'
+    def __init__(self, element, after):
+        self._element = element
+        self._next = after
+        
+class SinglyList(object):
+    def __init__(self):
+        self._head = None
+        self._size = 0 
+        
+    def __len__(self):
+        return self._size
+    
+    def push(self,e):
+        new = _Node(e,None)
+        if self._size ==0:
+            self._head = new
+        else:
+            new._next = self._head
+            self._head = new
+        self._size += 1
+    
+    def pull(self):
+        answer = self._head._element
+        self._head._element = None
+        self._head = self._head._next
+        self._size -= 1
+        return answer
+    
+    def __repr__(self):
+        StackList = []
+        walk = self._head
+        for i in range(self._size):
+            StackList.append(walk._element)
+            walk = walk._next
+        return str(StackList)
+
+L = SinglyList()
+for i in range(1,10):
+    L.push(i)
+
+def countNode(headNode):
+    if headNode == None:
+        return 0
+    else:
+        return (1 + countNode(headNode._next))
+
+countNode(L._head)
+    
