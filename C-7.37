@@ -1,0 +1,18 @@
+#default position list is non_decresing    
+def pair_sum(P,v):
+    if v > (P.last().element() + P.before(P.last()).element()) or v < P.first().element():
+        print 'Not possible'
+    else:
+        p1, p2 = P.first(), P.last()
+        while p1.element() + p2.element() != v and p1 != p2:
+            if p1.element() + p2.element() > v:
+                p2 = P.before(p2)
+            else:
+                p1 = P.after(p1)
+    return p1,p2,p1.element(),p2.element()
+        
+
+P = PositionalList()
+for i in range(30):
+    P.add_last(i)
+pair_sum(P,50)
