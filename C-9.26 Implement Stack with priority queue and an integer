@@ -117,9 +117,15 @@ class UnsortedPriorityQueue(object):
         return str(output_list)
         
 class Stack(UnsortedPriorityQueue):
-    CONSTANT = 1000
+    def __init__(self):
+        super(Stack, self).__init__()
+        #keep tracking on the order of input
+        self._counter = 0
+    
     def add(self,value):
-        self._data.add_last(_Item(Stack.CONSTANT - len(self._data) ,value))
+        self._data.add_last(_Item(self._counter ,value))
+        self._counter -= 1
+        
 S = Stack()
 for i in range(10):
     S.add(i)
