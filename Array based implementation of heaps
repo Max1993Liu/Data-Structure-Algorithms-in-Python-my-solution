@@ -39,10 +39,10 @@ class HeapPriorityQueue:
             
     def _downheap(self,j):
         if self._has_left(j):
-            left = self.left(j)
+            left = self._left(j)
             small = left
             if self._has_right(j):
-                right = self.right(j)
+                right = self._right(j)
                 if self._data[right] < self._data[left]:
                     small = right
             if self._data[small] < self._data[j]:
