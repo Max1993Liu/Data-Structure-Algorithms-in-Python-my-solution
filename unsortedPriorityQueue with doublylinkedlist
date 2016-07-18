@@ -1,0 +1,128 @@
+#Priority Queue
+class _Item:
+    __slots__ = '_key','_value'
+    
+    def __init__(self,key,value):
+        self._key = key
+        self._value = value
+    
+    def __lt__(self,other):
+        return self._key < other._key
+
+class _Node:
+    __slots__ = '_prev','_succ','_element'
+    def __init__(self, e, prev, succ):
+        self._element = e
+        self._prev = prev
+        self._succ = succ
+    
+    def __eq__(self,other):
+        return self._element == other._element
+    
+    def __nq__(self,other):
+        return not self == other
+    
+class DoublyLinkedList(object):
+    def __init__(self):
+        self._trailer = _Node(None,None,None)
+        self._header = _Node(None,None,self._trailer)
+        self._trailer._prev = self._header
+        self._size = 0
+        
+    def __len__(self):
+        return self._size
+    
+    def add_first(self, e):
+        new = _Node(e,self._header,self._header._succ)
+        successor = self._header._succ
+        self._header._succ = new
+        successor._prev = new
+        self._size += 1
+        
+    def add_last(self,e):
+        new = _Node(e,self._trailer._prev, self._trailer)
+        previous = self._trailer._prev
+        self._trailer._prev = new
+        previous._succ = new
+        self._size += 1
+    
+    def remove_first(self):
+        node = self._header._succ
+        answer = node._element
+        new_head = self._header._succ._succ
+        self._header._succ, new_head._prev = new_head, self._header
+        node._prev = node._succ = node._element = None
+        self._size -= 1
+        return answer
+    
+    def remove_last(self):
+        node = self._trailer._prev
+        answer = node._element
+        node._prev._succ = node._succ
+        node._succ._prev = node._prev
+        node._prev = node._succ = node._element = None
+        self._size -= 1
+        return answer
+    
+    def __repr__(self):
+        walker = self._header._succ
+        output_list = []
+        while walker != self._trailer:
+            output_list.append(walker._element)
+            walker = walker._succ
+        return str(output_list)
+
+class UnsortedPriorityQueue(object):
+    def __init__(self):
+        self._data = DoublyLinkedList()
+        
+    def __len__(self):
+        return len(self._data)
+    
+    def is_empty(self):
+        return len(self) == 0 
+    
+    def add(self,key,value):
+        self._data.add_last(_Item(key,value))
+        
+    def _find_min(self):
+        walker = self._data._header._succ
+        min_key, min_node = walker._element._key, walker
+        while walker != self._data._trailer:
+            if walker._element._key < min_key:
+                min_key, min_node = walker._element._key, walker
+            walker = walker._succ
+        return min_node
+    
+    def min(self):
+        node = self._find_min()
+        item = node._element
+        return item._key, item._value
+    
+    def remove_min(self):
+        node = self._find_min()
+        key, value = node._element._key, node._element._value
+        node._prev._succ = node._succ
+        node._succ._prev = node._prev
+        node._succ = node._prev = node._element = None
+        return key, value
+
+    def __repr__(self):
+        walker = self._data._header._succ
+        output_list = []
+        while walker != self._data._trailer:
+            item = walker._element
+            output_list.append((item._key, item._value))
+            walker = walker._succ
+        return str(output_list)
+        
+import numpy as np
+P = UnsortedPriorityQueue()
+value = range(10)
+key = np.random.randn(10)
+for i,j in zip(key,value):
+    P.add(i,j)
+print P
+print P.min()
+P.remove_min()
+print P
