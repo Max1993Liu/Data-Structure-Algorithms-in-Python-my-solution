@@ -1,0 +1,40 @@
+import random
+
+class CPU:
+    
+    def __init__(self):
+        self._jobs = HeapPriorityQueue()
+        self._timeTicker = 0 
+        
+    def add_job(self, time = random.randrange(1,11)):
+        priority = random.randrange(-20, 20)
+        time_needed = time
+        self._jobs.add(priority, time_needed)
+        return (time_needed,priority)
+        
+    def release_job(self):
+        return self._jobs.remove_min()
+
+    def run(self, time_span = 100):
+        Occupied = False
+        while self._timeTicker <= 100:
+            if Occupied == False:
+                p,countdown = self.release_job()
+                Occupied = True
+                print 'starting new job with priority',p,'and time left',countdown
+            else:
+                countdown -= 1
+                print 'time left:',countdown
+                if countdown == 0:
+                    Occupied = False
+            #possibly add another task every ten time slice
+            self._timeTicker += 1
+            if self._timeTicker % 10 == 0:
+                if random.randrange(0,2) == 1:
+                    time,priority =self.add_job()
+                    print 'new job added with with priority',priority,'and time span',time
+                    
+C = CPU()
+C.add_job()
+C.add_job()
+C.run()
